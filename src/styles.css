@@ -1,0 +1,127 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-glow: var(--primary-glow);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+/* Dark Premium é o tema único — aplicado ao :root */
+:root {
+  --radius: 0.625rem;
+
+  --background: oklch(0 0 0);                        /* #000000 */
+  --foreground: oklch(0.97 0.005 80);
+
+  --card: oklch(0.14 0.005 270);                     /* #0B0B0F */
+  --card-foreground: oklch(0.97 0.005 80);
+
+  --popover: oklch(0.16 0.006 270);
+  --popover-foreground: oklch(0.97 0.005 80);
+
+  --primary: oklch(0.68 0.22 38);                    /* laranja neon #FF5722 */
+  --primary-foreground: oklch(0.1 0 0);
+  --primary-glow: oklch(0.78 0.18 50);
+
+  --secondary: oklch(0.2 0.008 270);
+  --secondary-foreground: oklch(0.97 0.005 80);
+
+  --muted: oklch(0.18 0.006 270);
+  --muted-foreground: oklch(0.65 0.01 270);
+
+  --accent: oklch(0.75 0.16 70);                     /* âmbar #F59E0B */
+  --accent-foreground: oklch(0.1 0 0);
+
+  --destructive: oklch(0.62 0.24 27);
+  --destructive-foreground: oklch(0.98 0.005 80);
+
+  --success: oklch(0.7 0.17 152);
+  --success-foreground: oklch(0.1 0 0);
+
+  --border: oklch(0.27 0.008 270 / 50%);             /* neutral-800/50 */
+  --input: oklch(0.22 0.008 270);
+  --ring: oklch(0.68 0.22 38);
+
+  --chart-1: oklch(0.68 0.22 38);
+  --chart-2: oklch(0.75 0.16 70);
+  --chart-3: oklch(0.7 0.17 152);
+  --chart-4: oklch(0.6 0.18 260);
+  --chart-5: oklch(0.65 0.2 320);
+
+  --sidebar: oklch(0.08 0.004 270);
+  --sidebar-foreground: oklch(0.85 0.005 80);
+  --sidebar-primary: oklch(0.68 0.22 38);
+  --sidebar-primary-foreground: oklch(0.1 0 0);
+  --sidebar-accent: oklch(0.18 0.008 270);
+  --sidebar-accent-foreground: oklch(0.97 0.005 80);
+  --sidebar-border: oklch(0.25 0.008 270 / 50%);
+  --sidebar-ring: oklch(0.68 0.22 38);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Pulse vermelho para alertas de estoque */
+  @keyframes alert-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 oklch(0.62 0.24 27 / 0.7); }
+    50% { box-shadow: 0 0 0 6px oklch(0.62 0.24 27 / 0); }
+  }
+  .animate-alert-pulse {
+    animation: alert-pulse 1.6s ease-out infinite;
+  }
+
+  /* Glow sutil para CTAs primárias */
+  .glow-primary {
+    box-shadow: 0 0 0 1px oklch(0.68 0.22 38 / 0.3), 0 8px 24px -8px oklch(0.68 0.22 38 / 0.5);
+  }
+}

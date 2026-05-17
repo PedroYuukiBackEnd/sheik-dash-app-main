@@ -1,0 +1,23 @@
+-- =============================================================================
+-- Database Webhook: dispara Edge Function ao inserir alertas_whatsapp
+-- Configure no Dashboard: Database → Webhooks → Create
+--   Table: alertas_whatsapp | Events: INSERT | Type: Supabase Edge Function
+--   Function: whatsapp-webhook
+--
+-- Ou use pg_net (se habilitado no projeto):
+-- =============================================================================
+
+-- Exemplo com pg_net (opcional — prefira Webhook nativo do Dashboard):
+-- CREATE EXTENSION IF NOT EXISTS pg_net;
+--
+-- CREATE OR REPLACE FUNCTION public.notify_whatsapp_webhook()
+-- RETURNS TRIGGER LANGUAGE plpgsql SECURITY DEFINER AS $$
+-- BEGIN
+--   PERFORM net.http_post(
+--     url := current_setting('app.settings.edge_webhook_url', true),
+--     headers := jsonb_build_object('Content-Type', 'application/json'),
+--     body := jsonb_build_object('type', 'INSERT', 'table', 'alertas_whatsapp', 'record', row_to_json(NEW))
+--   );
+--   RETURN NEW;
+-- END;
+-- $$;
