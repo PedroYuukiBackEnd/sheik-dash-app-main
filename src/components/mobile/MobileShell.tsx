@@ -1,10 +1,22 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { Wrench, Plus, LogOut, History } from "lucide-react";
 import { Logo } from "@/components/Logo";
+import { signOut } from "@/lib/auth";
+import { toast } from "sonner";
 import type { ReactNode } from "react";
 
 export function MobileShell({ children }: { children: ReactNode }) {
+  const navigate = useNavigate();
   const pathname = useRouterState({ select: (r) => r.location.pathname });
+
+  const sair = async () => {
+    try {
+      await signOut();
+      navigate({ to: "/" });
+    } catch {
+      toast.error("Erro ao sair");
+    }
+  };
   const tab = (p: string) => pathname === p;
 
   return (
@@ -12,12 +24,13 @@ export function MobileShell({ children }: { children: ReactNode }) {
       <div className="w-full max-w-md min-h-screen flex flex-col border-x border-border bg-background relative pb-20">
         <header className="sticky top-0 z-20 flex items-center justify-between px-4 py-3 border-b border-border bg-background/95 backdrop-blur">
           <Logo />
-          <Link
-            to="/"
+          <button
+            type="button"
+            onClick={() => void sair()}
             className="flex items-center gap-1.5 text-[11px] text-muted-foreground hover:text-foreground"
           >
             <LogOut className="h-3.5 w-3.5" /> Sair
-          </Link>
+          </button>
         </header>
 
         <main className="flex-1">{children}</main>

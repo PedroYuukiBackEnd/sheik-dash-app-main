@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as MecanicoRouteImport } from './routes/mecanico'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as MecanicoIndexRouteImport } from './routes/mecanico.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as MecanicoNovaOsRouteImport } from './routes/mecanico.nova-os'
@@ -34,6 +35,11 @@ const AdminRoute = AdminRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MecanicoIndexRoute = MecanicoIndexRouteImport.update({
@@ -80,6 +86,7 @@ const MecanicoOsOsIdExecucaoRoute = MecanicoOsOsIdExecucaoRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/admin': typeof AdminRouteWithChildren
   '/mecanico': typeof MecanicoRouteWithChildren
   '/admin/clientes': typeof AdminClientesRoute
@@ -93,6 +100,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/admin/clientes': typeof AdminClientesRoute
   '/admin/estoque': typeof AdminEstoqueRoute
   '/admin/financeiro': typeof AdminFinanceiroRoute
@@ -105,6 +113,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/admin': typeof AdminRouteWithChildren
   '/mecanico': typeof MecanicoRouteWithChildren
   '/admin/clientes': typeof AdminClientesRoute
@@ -120,6 +129,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/login'
     | '/admin'
     | '/mecanico'
     | '/admin/clientes'
@@ -133,6 +143,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/login'
     | '/admin/clientes'
     | '/admin/estoque'
     | '/admin/financeiro'
@@ -144,6 +155,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/login'
     | '/admin'
     | '/mecanico'
     | '/admin/clientes'
@@ -158,6 +170,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LoginRoute: typeof LoginRoute
   AdminRoute: typeof AdminRouteWithChildren
   MecanicoRoute: typeof MecanicoRouteWithChildren
 }
@@ -183,6 +196,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mecanico/': {
@@ -280,6 +300,7 @@ const MecanicoRouteWithChildren = MecanicoRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LoginRoute: LoginRoute,
   AdminRoute: AdminRouteWithChildren,
   MecanicoRoute: MecanicoRouteWithChildren,
 }

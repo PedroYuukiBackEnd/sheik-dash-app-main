@@ -1,6 +1,8 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { LayoutDashboard, Users, Package, Wallet, LogOut, MapPin } from "lucide-react";
 import { Logo } from "@/components/Logo";
+import { signOut } from "@/lib/auth";
+import { toast } from "sonner";
 
 const items = [
   { to: "/admin", label: "Visão Geral", icon: LayoutDashboard, exact: true },
@@ -10,7 +12,17 @@ const items = [
 ];
 
 export function AdminSidebar() {
+  const navigate = useNavigate();
   const pathname = useRouterState({ select: (r) => r.location.pathname });
+
+  const sair = async () => {
+    try {
+      await signOut();
+      navigate({ to: "/" });
+    } catch {
+      toast.error("Erro ao sair");
+    }
+  };
 
   return (
     <aside className="hidden lg:flex w-64 shrink-0 flex-col border-r border-border bg-sidebar">
@@ -44,13 +56,14 @@ export function AdminSidebar() {
           <MapPin className="h-3.5 w-3.5 mt-0.5 shrink-0 text-primary" />
           <span>Av. Casa Verde, 2817<br />Casa Verde · São Paulo/SP</span>
         </div>
-        <Link
-          to="/"
+        <button
+          type="button"
+          onClick={() => void sair()}
           className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
         >
           <LogOut className="h-3.5 w-3.5" />
-          Trocar perfil
-        </Link>
+          Sair
+        </button>
       </div>
     </aside>
   );

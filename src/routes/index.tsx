@@ -29,7 +29,8 @@ function Index() {
 
         <div className="grid sm:grid-cols-2 gap-4">
           <Link
-            to="/admin"
+            to="/login"
+            search={{ dest: "admin" }}
             className="group relative rounded-2xl border border-border bg-card p-6 hover:border-primary/50 transition-all duration-200"
           >
             <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary/15 text-primary mb-4 group-hover:bg-primary/25 transition-colors">
@@ -45,7 +46,8 @@ function Index() {
           </Link>
 
           <Link
-            to="/mecanico"
+            to="/login"
+            search={{ dest: "mecanico" }}
             className="group relative rounded-2xl border border-border bg-card p-6 hover:border-primary/50 transition-all duration-200"
           >
             <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-accent/20 text-accent mb-4 group-hover:bg-accent/30 transition-colors">
